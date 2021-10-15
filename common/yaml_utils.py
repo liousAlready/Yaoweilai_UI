@@ -104,7 +104,6 @@ class YamlUtils:
         return element_infos
 
 
-
     # def single_data(self, text):
     #     element_infos = {}
     #     for a in self.all_data().values():
