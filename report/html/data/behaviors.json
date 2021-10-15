@@ -1,0 +1,43 @@
+{
+  "uid" : "b1a8273437954620fa374b796ffaacdd",
+  "name" : "behaviors",
+  "children" : [ {
+    "name" : "test_case_01",
+    "uid" : "c9621d0d3ae5d7f8",
+    "parentUid" : "b1a8273437954620fa374b796ffaacdd",
+    "status" : "passed",
+    "time" : {
+      "start" : 1634192646928,
+      "stop" : 1634192715738,
+      "duration" : 68810
+    },
+    "flaky" : false,
+    "newFailed" : false,
+    "parameters" : [ ]
+  }, {
+    "name" : "盛杰-App",
+    "children" : [ {
+      "name" : "V1.0",
+      "children" : [ {
+        "name" : "视频模块",
+        "children" : [ {
+          "name" : "[case01] 验证能否发送评论信息",
+          "uid" : "a8f8e94f979882a0",
+          "parentUid" : "89a8e6a57aa934dac4302456b5e3ca60",
+          "status" : "passed",
+          "time" : {
+            "start" : 1634192730726,
+            "stop" : 1634192752099,
+            "duration" : 21373
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "89a8e6a57aa934dac4302456b5e3ca60"
+      } ],
+      "uid" : "a4594297320207c9f9fe16a8f3f76300"
+    } ],
+    "uid" : "bcbfbfe3566004c0ec1a21707b331673"
+  } ]
+}

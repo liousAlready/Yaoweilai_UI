@@ -1,0 +1,12 @@
+{
+  "platformName": "Android",
+  "platformVersion": "8.1.0",
+  "deviceName": "vivo x20",
+  "appPackage": "uni.UNIDD11F28",
+  "appActivity": "io.dcloud.PandoraEntry",
+  "host": "127.0.0.1",
+  "port": "4723",
+  "noReset": true,
+  "unicodeKeyboard": true,
+  "resetKeyboard": true
+}

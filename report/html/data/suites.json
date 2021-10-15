@@ -1,0 +1,55 @@
+{
+  "uid" : "98d3104e051c652961429bf95fa0b5d6",
+  "name" : "suites",
+  "children" : [ {
+    "name" : "test_case.consulting_suite",
+    "children" : [ {
+      "name" : "test_consulting",
+      "children" : [ {
+        "name" : "TestConsulting",
+        "children" : [ {
+          "name" : "test_case_01",
+          "uid" : "c9621d0d3ae5d7f8",
+          "parentUid" : "b557c5d5e172f784c27d363901641279",
+          "status" : "passed",
+          "time" : {
+            "start" : 1634192646928,
+            "stop" : 1634192715738,
+            "duration" : 68810
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "b557c5d5e172f784c27d363901641279"
+      } ],
+      "uid" : "4f61227aec07787e4cb784e29bfddb38"
+    } ],
+    "uid" : "2f557b2f51fea91b8f9549b4513d46d4"
+  }, {
+    "name" : "test_case.video_comment",
+    "children" : [ {
+      "name" : "test_comment",
+      "children" : [ {
+        "name" : "TestComment",
+        "children" : [ {
+          "name" : "[case01] 验证能否发送评论信息",
+          "uid" : "a8f8e94f979882a0",
+          "parentUid" : "fb1196b9fe79d6c602a740ee7bcd12fb",
+          "status" : "passed",
+          "time" : {
+            "start" : 1634192730726,
+            "stop" : 1634192752099,
+            "duration" : 21373
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "fb1196b9fe79d6c602a740ee7bcd12fb"
+      } ],
+      "uid" : "e161f1608a68c53bc4e2eb64687f3db4"
+    } ],
+    "uid" : "0bbde833c49821244d359cd52ec97e48"
+  } ]
+}
