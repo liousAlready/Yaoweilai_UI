@@ -90,22 +90,19 @@ class YamlUtils:
 
     def demo_01(self):
         data = self.all_data()
-        element_infos = []
+        element_infos = {}
         for da in data:
+            element_info = {}
             for i in da.values():
                 for c in i:
-                    element_info = {}
+
                     element_info["locator_name"] = c['name']
                     element_info["locator_type"] = c['find_type']
                     element_info["locator_value"] = c['element_info']
                     element_info["element_name"] = c['descprtion']
-                    element_infos.append(element_info)
+                    element_infos.update(element_info)
         return element_infos
 
-    def demo_02(self):
-        all = self.demo_01()
-        for i in all:
-            pass
 
 
     # def single_data(self, text):
@@ -127,4 +124,4 @@ if __name__ == '__main__':
     print(read.get_element_info())
     print('=====')
     # print(read.all_data())
-    print(read.demo_02())
+    print(read.demo_01())
