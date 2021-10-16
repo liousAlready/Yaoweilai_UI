@@ -11,3 +11,7 @@
       descprtion: 点击观看历史
       element_info: //android.view.View[@text="观看历史"]
       find_type: xpath
+    - name: dianchi
+      descprtion: 电池
+      element_info: //android.widget.TextView[@text="应用和通知"]
+      find_type: xpath
