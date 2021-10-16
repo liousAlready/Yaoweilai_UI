@@ -113,10 +113,9 @@ class ElementActions:
             self.save_image_to_allure()
 
     def find_element(self, locator, locator_timeout=5):
-
         try:
-            locator_type = locator['find_type']
-            locator_value = locator_type['element_info']
+            locator_type = locator['locator_type']
+            locator_value = locator['locator_value']
 
             if locator_type == "name":
                 locator_type = By.NAME
@@ -232,9 +231,6 @@ class ElementActions:
 if __name__ == '__main__':
     app_driver = AppiumTest().get_driver()
     Element_driver = ElementActions(app_driver)
-    data = YamlUtils()
-    print(data.get_find_type(0), data.get_element_info(0))
-    a = data.get_find_type(0)
-    b = data.get_element_info(1)
-    app_driver.implicitly_wait(10)
-    Element_driver.click(a, b)
+    datas = YamlUtils().get_one_data("history")
+    print(datas)
+    Element_driver.find_element(datas)

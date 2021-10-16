@@ -10,7 +10,7 @@ from common.logs_utils import logger
 from appium import webdriver
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(current_path,'..','config','desire_caps.json')
+json_path = os.path.join(current_path, '..', 'config', 'desire_caps.json')
 
 
 class AppiumTest:
@@ -21,6 +21,7 @@ class AppiumTest:
             desired_caps = {}
             desired_caps['platformName'] = self.data['platformName']
             desired_caps['deviceName'] = self.data['deviceName']
+            desired_caps['udid'] = self.data['udid']
             # desired_caps['deviceVersion'] = self.data['deviceVersion']
             desired_caps['noReset'] = self.data['noReset']
             desired_caps['unicodeKeyboard'] = self.data['unicodeKeyboard']

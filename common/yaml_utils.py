@@ -79,48 +79,41 @@ class YamlUtils:
         data = self.all_data()
         return data['testcase'][i]['find_type']
 
-    def get_operate_type(self, i):
-        data = self.all_data()
-        return data['testcase'][i]['operate_type']
-
-    def single_data(self):
-        element_infos = {}
-        data = self.all_data()
-        print(data)
-
-    def demo_01(self):
+    def get_one_data(self, text):
         data = self.all_data()
         element_infos = {}
-        for da in data:
+        for c in range(1, len(data[0]['element_infos'])):
             element_info = {}
-            for i in da.values():
-                for c in i:
-
-                    element_info["locator_name"] = c['name']
-                    element_info["locator_type"] = c['find_type']
-                    element_info["locator_value"] = c['element_info']
-                    element_info["element_name"] = c['descprtion']
-                    element_infos.update(element_info)
+            if text == data[0]['element_infos'][c]['name']:
+                element_info['locator_name'] = data[0]['element_infos'][c]['name']
+                element_info["locator_type"] = data[0]['element_infos'][c]['find_type']
+                element_info["locator_value"] = data[0]['element_infos'][c]['element_info']
+                element_info["element_name"] = data[0]['element_infos'][c]['descprtion']
+                # element_infos = data[0]['element_infos'][c]
+                element_infos = element_info
         return element_infos
 
-
     # def single_data(self, text):
+    #     data = self.all_data()
     #     element_infos = {}
-    #     for a in self.all_data().values():
-    #         for c in a:
-    #             element_info = {}
-    #             if text == c['name']:
-    #                 element_info["locator_name"] = c['name']
-    #                 element_info["locator_type"] = c['find_type']
-    #                 element_info["locator_value"] = c['element_info']
-    #                 # element_info["element_name"] = c['descprtion']
-    #                 element_infos = element_info
-    #     return element_infos
+    #     for i in range(1, len(data)):
+    #         for i in data:
+    #             for c in i.keys():
+    #                 element_info = {}
+    #                 if c == text:
+    #                     for c in i.values():
+    #                         for value in c:
+    #                             # print(value)
+    #                             if value['name'] :
+    #                                 element_info["name"] = value['name']
+    #                                 element_info["locator_type"] = value['find_type']
+    #                                 element_info["locator_value"] = value['element_info']
+    #                                 element_infos = element_info
+    #                         print(element_infos)
 
 
 if __name__ == '__main__':
     read = YamlUtils()
-    print(read.get_element_info())
     print('=====')
-    # print(read.all_data())
-    print(read.demo_01())
+    print(read.get_one_data("history"))
+    print('=====')
