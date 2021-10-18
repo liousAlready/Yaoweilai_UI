@@ -1,8 +1,8 @@
 {
   "platformName": "Android",
-  "platformVersion": "8.1.0",
+  "platformVersion": "9.0.0",
   "deviceName": "vivo x20",
-  "udid": "192.168.67.101:5555",
+  "udid": "192.168.0.101:5555",
   "appPackage": "com.android.dialer",
   "appActivity": "com.android.dialer.app.DialtactsActivity",
   "host": "127.0.0.1",

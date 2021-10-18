@@ -14,6 +14,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from common.logs_utils import logger
 from common.driver_util import AppiumTest
 from common.yaml_utils import YamlUtils
+from test_data.demo_pages import DemoPages as de
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class ElementActions:
@@ -121,7 +123,197 @@ class ElementActions:
             logger.error("元素不能识别,原因是: %s" % e)
             self.save_image_to_allure()
 
-    def find_element(self, locator, locator_timeout=5):
+    # def find_element(self, locator, locator_timeout=5):
+    #     """
+    #     :param locator:  查找单个元素
+    #     :param locator_timeout: 超时时间
+    #     :return:
+    #     """
+    #     try:
+    #         element = WebDriverWait(self.driver, locator_timeout).until(ec.presence_of_element_located(locator))
+    #         logger.info('[%s] 元素识别成功' % element)
+    #     except Exception as e:
+    #         logger.error("[%s] 元素不能识别,原因是: %s" % (locator['element_name'], e.__str__()))
+    #         self.save_image_to_allure()
+    #     return element
+
+    def wait_ele_visible(self, locator, timeout=20, poll_frequency=0.5):
+        """
+        :param locator: 查询元素是否可见
+        :param timeout:
+        :param poll_frequency:
+        :return:
+        """
+        logger.info("等待元素：{} 可见。".format(locator))
+        try:
+            start = time.time()
+            WebDriverWait(self.driver, timeout, poll_frequency).until(EC.visibility_of_element_located(locator))
+        except Exception as e:
+            # 输出到日志
+            logger.error("查找元素失败！原因是 [%s]" % e.__str__())
+            # 失败截取当前页面
+            self.save_image_to_allure()
+            raise
+        else:
+            end = time.time()
+            logger.info("等待耗时为：{}".format(end - start))
+
+    def wait_contains_element(self, locator, timeout=20, poll_frequency=0.5):
+        """
+        :param locator:  查询元素是否存在
+        :param timeout:
+        :param poll_frequency:
+        :return:
+        """
+        logger.info("等待元素：{} 存在。".format(locator))
+        try:
+            start = time.time()
+            WebDriverWait(self.driver, timeout, poll_frequency).until(EC.presence_of_element_located(locator))
+        except Exception as e:
+            # 输出到日志
+            logger.error("查找元素失败！原因是 [%s]" % e.__str__())
+            # 失败截取当前页面
+            self.save_image_to_allure()
+            raise
+        else:
+            end = time.time()
+            logger.info("等待耗时为：{}".format(end - start))
+
+    def find_element(self, locator, timeout=20, poll_frequency=0.5, wait_exist=False):
+        """
+        :param locator:
+        :param page_action:
+        :param timeout:
+        :param poll_frequency:
+        :param wait: 默认是等待元素可见。
+        :return:
+        """
+        # 先等待元素可见或者存在
+        if wait_exist is False:
+            self.wait_contains_element(locator)
+        else:
+            self.wait_ele_visible(locator)
+        logger.info("查找元素：{}".format(locator))
+        try:
+            ele = self.driver.find_element(*locator)
+        except Exception as e:
+            # 输出到日志
+            logger.error("查找元素失败！原因是 [%s]" % e.__str__())
+            # 失败截取当前页面
+            self.save_image_to_allure()
+            raise
+        else:
+            return ele
+
+    def click(self, locator):
+        """
+        :param locator:
+        :return:
+        """
+        element = self.driver.find_element(*locator)
+        try:
+            element.click()
+            logger.info("识别元素进行点击操作...")
+        except Exception as e:
+            logger.error("元素不能识别,原因是: %s" % (e.__str__()))
+            self.save_image_to_allure()
+
+    def input(self, locator, text):
+        element = self.driver.find_element(*locator)
+        try:
+            element.send_keys(text)
+            logger.info("当前正在进行输入操作:[%s]" % text)
+        except Exception as e:
+            logger.error("元素不能识别,原因是: %s" % (e.__str__()))
+            self.save_image_to_allure()
+
+    def find_elements(self, locator, timeout=20, poll_frequency=0.5, wait_exist=False):
+        """
+        :param locator:  查找一组元素
+        :param locator_timeout: 超时时间
+        :return:
+        """
+        if wait_exist is False:
+            self.wait_contains_element(locator)
+        else:
+            self.wait_ele_visible(locator)
+        logger.info("查找元素：{}".format(locator))
+        try:
+            ele = self.driver.find_elements(*locator)
+        except Exception as e:
+            # 输出到日志
+            logger.error("查找元素失败！原因是 [%s]" % e.__str__())
+            # 失败截取当前页面
+            self.save_image_to_allure()
+            raise
+        else:
+            return ele
+
+    def select_random_element_content(self, locators):
+        """
+        :param locators: 随机从列表中获取一个元素进行惦记操作
+        :return:
+        """
+        element_list = self.find_elements(*locators)
+        try:
+            content_element = []
+            for substance in element_list:
+                cont = substance.text
+                content_element.append(cont)
+            content = random.choice(content_element)
+            logger.info("获取到的文本信息:%s" % content)
+            return content
+        except Exception as e:
+            logger.error("元素不能识别,原因是: %s" % (e.__str__()))
+            self.save_image_to_allure()
+
+    def get_elements_last_content(self, locators):
+        """
+        :param locators: 获取列表中最后一个元素的文本信息
+        :return:
+        """
+        element_list = self.find_elements(*locators)
+        try:
+            text = element_list[-1].text
+            logger.info("选择列表最后一个元素")
+            return text
+        except Exception as e:
+            logger.error("元素不能识别,原因是: %s" % (e.__str__()))
+            self.save_image_to_allure()
+
+    def is_element_exist(self, locator):
+        """
+        :param locator:  查找元素是否存在
+        :return:
+        """
+        try:
+            element = self.find_element(*locator)
+            if element:
+                logger.info("查找的元素存在")
+                return True
+            else:
+                # 没有发生异常，表示在页面中找到了该元素，返回True
+                return True
+        except Exception as e:
+            logger.error("元素不能识别,原因是: %s" % (e.__str__()))
+            self.save_image_to_allure()
+
+    def select_random_element_click_yaml(self, locators):
+        """
+        :param locators: 随机从列表中获取一个元素进行惦记操作
+        :return:
+        """
+        element_list = self.find_elements_yaml(locators)
+        try:
+            random_list = []
+            for elem in element_list:
+                random_list.append(elem)
+            random.choice(random_list[:]).click()
+        except Exception as e:
+            logger.error("[%s] 元素不能识别,原因是: %s" % (locators['element_name'], e.__str__()))
+            self.save_image_to_allure()
+
+    def find_element_yaml(self, locator, locator_timeout=5):
         """
         :param locator:  查找单个元素
         :param locator_timeout: 超时时间
@@ -155,7 +347,7 @@ class ElementActions:
             self.save_image_to_allure()
         return element
 
-    def find_elements(self, locator, locator_timeout=5):
+    def find_elements_yaml(self, locator, locator_timeout=5):
         """
         :param locator:  查找一组元素
         :param locator_timeout: 超时时间
@@ -189,44 +381,12 @@ class ElementActions:
             self.save_image_to_allure()
         return element
 
-    def is_element_exist(self, locator):
-        """
-        :param locator:  查找元素是否存在
-        :return:
-        """
-        try:
-            element = self.find_element(locator)
-            if element:
-                logger.info("查找的：[%s] 元素存在" % locator['element_name'])
-                return True
-            else:
-                # 没有发生异常，表示在页面中找到了该元素，返回True
-                return True
-        except Exception as e:
-            logger.error("[%s] 元素不能识别,原因是: %s" % (locator['element_name'], e.__str__()))
-            self.save_image_to_allure()
-
-    def select_random_element_click(self, locators):
+    def select_random_element_content_yaml(self, locators):
         """
         :param locators: 随机从列表中获取一个元素进行惦记操作
         :return:
         """
-        element_list = self.find_elements(locators)
-        try:
-            random_list = []
-            for elem in element_list:
-                random_list.append(elem)
-            random.choice(random_list[:]).click()
-        except Exception as e:
-            logger.error("[%s] 元素不能识别,原因是: %s" % (locators['element_name'], e.__str__()))
-            self.save_image_to_allure()
-
-    def select_random_element_content(self, locators):
-        """
-        :param locators: 随机从列表中获取一个元素进行惦记操作
-        :return:
-        """
-        element_list = self.find_elements(locators)
+        element_list = self.find_elements_yaml(locators)
         try:
             content_element = []
             for substance in element_list:
@@ -239,12 +399,12 @@ class ElementActions:
             logger.error("[%s] 元素不能识别,原因是: %s" % (locators['element_name'], e.__str__()))
             self.save_image_to_allure()
 
-    def get_elements_last_content(self, locators):
+    def get_elements_last_content_yaml(self, locators):
         """
         :param locators: 获取列表中最后一个元素的文本信息
         :return:
         """
-        element_list = self.find_elements(locators)
+        element_list = self.find_elements_yaml(locators)
         try:
             text = element_list[-1].text
             logger.info("选择列表最后一个元素")
@@ -253,8 +413,7 @@ class ElementActions:
             logger.error("[%s]元素不能识别,原因是: %s" % (locators['element_name'], e.__str__()))
             self.save_image_to_allure()
 
-
-    def click(self, locator):
+    def click_yaml(self, locator):
         """
         :param locator: 从字典中取值
         :return:
@@ -267,7 +426,7 @@ class ElementActions:
             logger.error("[%s] 元素不能识别,原因是: %s" % (locator['element_name'], e.__str__()))
             self.save_image_to_allure()
 
-    def input(self, locator, text):
+    def input_yaml(self, locator, text):
         element = self.driver.find_element(locator['locator_type'], locator['locator_value'])
         try:
             element.send_keys(text)
@@ -330,9 +489,7 @@ class ElementActions:
 if __name__ == '__main__':
     app_driver = AppiumTest().get_driver()
     Element_driver = ElementActions(app_driver)
-    datas = YamlUtils().get_one_data("dianchi")
-    print(datas)
-    Element_driver.is_element_exist(datas)
-    Element_driver.find_element(datas)
-    Element_driver.wait(2)
-    Element_driver.click(datas)
+    # print(datas)
+    # Element_driver.is_element_exist(datas)
+    print(de.add)
+    Element_driver.click(de.add)

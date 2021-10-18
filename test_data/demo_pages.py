@@ -11,8 +11,15 @@ from selenium.webdriver.common.by import By
 
 
 class DemoPages:
-    my_btn = (By.XPATH, '//android.widget.TextView[@text="添加常用联系人"]')
+    add = (By.XPATH, '//android.widget.TextView[@text="添加常用联系人"]')
+    newpeople = (By.XPATH, ' //android.widget.TextView[@text="创建新联系人"]')
+    lastname = (By.XPATH, '//android.widget.EditText[@text="姓氏"]')
+    name = (By.XPATH, '//android.widget.EditText[@text="名字"]')
+    phone = (By.XPATH, '//android.widget.EditText[@text="电话"]')
+    img = (By.XPATH, '//android.widget.ImageView[@resource-id="com.android.contacts:id/photo"]')
+    chioce_img = (By.XPATH, '//android.widget.TextView[@text="选择照片"]')
 
 
 if __name__ == '__main__':
-    print(DemoPages.my_btn)
+    print(type(DemoPages.add))
+    print(DemoPages.add)
