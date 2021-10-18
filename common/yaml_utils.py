@@ -8,7 +8,7 @@ import yaml
 from common.logs_utils import logger
 
 current_path = os.path.dirname(os.path.realpath(__file__))
-yml_path = os.path.join(current_path, '..', 'test_data', 'four.yaml')
+yml_path = os.path.join(current_path, '..', 'test_data', 'demo.yaml')
 
 
 class YamlUtils:
