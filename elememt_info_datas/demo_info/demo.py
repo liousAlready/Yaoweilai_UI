@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/10/16 16:45
 # @Author  : limusem
-# @File    : demo.py
+# @File    : demo_yaml.py
 # @Software: PyCharm
 # @Description:
 
@@ -11,6 +11,7 @@ from common.driver_util import AppiumTest
 from common.base_page import ElementActions
 from common.yaml_utils import YamlUtils
 from common.logs_utils import logger
+from test_data.demo_pages import DemoPages as de
 
 data = YamlUtils()
 
@@ -21,28 +22,28 @@ class DemoPages(ElementActions):
 
     def click_add(self):
         self.wait(1)
-        self.click(data.get_one_data("add"))
+        self.click(de.add)
 
     def click_newpeople(self):
         self.wait(1)
-        self.click(data.get_one_data('newpeople'))
+        self.click(de.newpeople)
 
     def input_lastname(self, text):
         self.wait(1)
-        self.input(data.get_one_data('lastname'), text)
+        self.input(de.lastname, text)
 
     def input_name(self, text):
         self.wait(1)
-        self.input(data.get_one_data('name'), text)
+        self.input(de.name, text)
 
     def input_phone(self,phone):
         self.wait(1)
-        self.input(data.get_one_data('phone'),phone)
+        self.input(de.phone,phone)
 
     def click_img(self):
         self.wait(1)
-        self.click(data.get_one_data('img'))
+        self.click(de.img)
 
     def click_chioce_img(self):
         self.wait(1)
-        self.click(data.get_one_data('chioce_img'))
+        self.click(de.chioce_img)

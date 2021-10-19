@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/10/16 17:10
 # @Author  : limusem
-# @File    : test_demo.py
+# @File    : test_demo_yaml.py
 # @Software: PyCharm
 # @Description:
 
 import pytest
 
 from common.driver_util import AppiumTest
-from action_pages.demo1 import Demo
+from action_pages.demo.demo1_yaml import Demo
 
 
 class TestDemo:

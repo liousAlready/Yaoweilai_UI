@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2021/10/16 17:04
 # @Author  : limusem
-# @File    : demo1.py
+# @File    : demo1_yaml.py
 # @Software: PyCharm
 # @Description:
 
 
-from elememt_info_datas.demo import DemoPages
+from elememt_info_datas.demo_info.demo_yaml import DemoPages
 
 
 class Demo:
