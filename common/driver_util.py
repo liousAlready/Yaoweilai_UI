@@ -34,3 +34,7 @@ class AppiumTest:
 
     def get_driver(self):
         return self.driver
+
+
+if __name__ == '__main__':
+    AppiumTest().get_driver()

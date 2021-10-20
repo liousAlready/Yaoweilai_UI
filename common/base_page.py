@@ -72,6 +72,7 @@ class ElementActions:
             window_size = self.get_size()
             width = window_size.get("width")
             height = window_size.get("height")
+            self.wait(3)
             self.driver.swipe(width / 2, height * 3 / 4, width / 2, height / 4, 500)
             logger.info("从下往上滑动")
         except Exception as e:
@@ -123,19 +124,24 @@ class ElementActions:
             logger.error("元素不能识别,原因是: %s" % e)
             self.save_image_to_allure()
 
-    # def find_element(self, locator, locator_timeout=5):
-    #     """
-    #     :param locator:  查找单个元素
-    #     :param locator_timeout: 超时时间
-    #     :return:
-    #     """
-    #     try:
-    #         element = WebDriverWait(self.driver, locator_timeout).until(ec.presence_of_element_located(locator))
-    #         logger.info('[%s] 元素识别成功' % element)
-    #     except Exception as e:
-    #         logger.error("[%s] 元素不能识别,原因是: %s" % (locator['element_name'], e.__str__()))
-    #         self.save_image_to_allure()
-    #     return element
+    def target_click(self, x1, y1):  # x1,y1为你编写脚本时适用设备的实际坐标
+        # x_1 = x1 / width  # 计算坐标在横坐标上的比例，其中width为传入设备的宽
+        # y_1 = y1 / height  # 计算坐标在纵坐标height为传入设备的的高
+        self.wait(2)
+        size = self.get_size()
+
+        width = size['width']
+        height = size['height']
+
+
+
+        x_1 = x1 / width  # 计算坐标在横坐标上的比例，其中width为传入设备的宽
+        y_1 = y1 / height  # 计算坐标在纵坐标height为传入设备的的高
+
+        # x = self.get_size()['width']  # 获取设备的屏幕宽度
+        # y = self.get_size()['height']  # 获取设备屏幕的高度
+        self.driver.tap([((x_1 * width, y_1 * height))])
+        self.wait(2)
 
     def wait_ele_visible(self, locator, timeout=20, poll_frequency=0.5):
         """
@@ -489,7 +495,3 @@ class ElementActions:
 if __name__ == '__main__':
     app_driver = AppiumTest().get_driver()
     Element_driver = ElementActions(app_driver)
-    # print(datas)
-    # Element_driver.is_element_exist(datas)
-    print(de.add)
-    Element_driver.click(de.add)

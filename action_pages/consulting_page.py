@@ -4,34 +4,36 @@
 # @File : consulting
 
 import pytest
-from common.yaml_utils import YamlUtils
 from common.base_page import ElementActions
 from common.driver_util import AppiumTest
+from elememt_info_datas.consulting_sutie.consulting_page import Consulting
 
 
-class Consulting(ElementActions):
+class ActionConsulting(ElementActions):
 
     def __init__(self, driver):
         super().__init__(driver)
-        elements = YamlUtils().get_yaml(key='app_consulting')
-        self.caseDate = elements['caseDatas']
+        self.consult = Consulting(driver)
 
-    @pytest.mark.parametrize('data', YamlUtils().read_yaml(key='app_consulting'))
-    def test_case_01(self, data):
-        driver = AppiumTest().get_driver()
-        consulting = ElementActions(driver)
-        caseData = data['caseDatas']
-        driver.implicitly_wait(10)
-        print(*caseData['my_btn'])
-
-    def click_my_btn(self):
-        self.click(self.caseDate['my_btn'])
-
-    def print_but(self):
-        print(self.caseDate['my_btn'])
+    def create_information(self, **kwargs):
+        self.consult.click_my_btn()
+        self.consult.swipe_to_up()
+        self.consult.click_information_btn()
+        self.consult.click_information_title(kwargs['title'])
+        self.consult.click_information_content(kwargs['content'])
+        self.consult.click_next_btn()
+        self.consult.click_only_pic_btn()
+        self.consult.click_add_pic()
+        self.consult.click_camera_btn()
+        self.consult.click_screenshot_btn()
+        self.consult.target_click(kwargs["x1"],kwargs["y1"])
+        self.consult.target_click(kwargs["x2"],kwargs["y2"])
+        self.consult.wait(3)
+        self.consult.click_article_tag()
+        self.consult.click_tag_btn()
+        self.consult.click_complete_btn()
+        self.consult.click_release_btn()
 
 
 if __name__ == '__main__':
-    driver = AppiumTest().get_driver()
-    Consulting(driver).print_but()
-    Consulting(driver).click_my_btn()
+    pass
