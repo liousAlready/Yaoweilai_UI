@@ -93,4 +93,4 @@ class Devices:
 
 if __name__ == '__main__':
     dos = Devices()
-    print(dos.get_state())
+    print(dos.attached_devices())

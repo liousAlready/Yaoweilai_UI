@@ -15,7 +15,7 @@ Company: 湖南零檬信息技术有限公司
 import pytest
 from PageObjects.login_page import LoginPage
 from PageObjects.home_page import HomePage
-from TestDatas import login_datas as td
+from demo1 import login_datas as td
 
 
 @pytest.mark.usefixtures("back_login")
