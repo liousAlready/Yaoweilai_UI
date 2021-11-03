@@ -3,7 +3,7 @@
 # @Author : Limusen
 # @File : consulting
 
-from common.yaml_utils import YamlUtils
+from common.old_yaml_utils import YamlUtils
 from common.base_page import ElementActions
 from common.driver_util import AppiumTest
 from test_data.cousulting_test_suite.consulting_data import ConsultingData as csl

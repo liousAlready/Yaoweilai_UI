@@ -13,7 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from common.logs_utils import logger
 from common.driver_util import AppiumTest
-from common.yaml_utils import YamlUtils
+from common.old_yaml_utils import YamlUtils
 from test_data.demo_pages import DemoPages as de
 from selenium.webdriver.support import expected_conditions as EC
 

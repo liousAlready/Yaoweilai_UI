@@ -38,3 +38,9 @@
       descprtion: 选择图片
       element_info: //android.widget.TextView[@text="选择照片"]
       find_type: xpath
+
+- limusen:
+    - name: chioce_img
+      descprtion: 选择图片
+      element_info: //android.widget.TextView[@text="选择照片"]
+      find_type: xpath

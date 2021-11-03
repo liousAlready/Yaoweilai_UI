@@ -9,7 +9,7 @@
 
 from common.driver_util import AppiumTest
 from common.base_page import ElementActions
-from common.yaml_utils import YamlUtils
+from common.old_yaml_utils import YamlUtils
 from common.logs_utils import logger
 
 data = YamlUtils()
