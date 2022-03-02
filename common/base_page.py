@@ -13,8 +13,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from common.logs_utils import logger
 from common.driver_util import AppiumTest
-from common.old_yaml_utils import YamlUtils
-from test_data.demo_pages import DemoPages as de
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -53,7 +51,7 @@ class ElementActions:
         logger.info("获取屏幕分辨率: [%s]" % size)
         return size
 
-    def get_text(self, *locator):
+    def get_text(self, locator):
         element = self.driver.find_element(*locator)
         try:
             text = element.text
@@ -132,8 +130,6 @@ class ElementActions:
 
         width = size['width']
         height = size['height']
-
-
 
         x_1 = x1 / width  # 计算坐标在横坐标上的比例，其中width为传入设备的宽
         y_1 = y1 / height  # 计算坐标在纵坐标height为传入设备的的高
@@ -302,143 +298,6 @@ class ElementActions:
                 return True
         except Exception as e:
             logger.error("元素不能识别,原因是: %s" % (e.__str__()))
-            self.save_image_to_allure()
-
-    def select_random_element_click_yaml(self, locators):
-        """
-        :param locators: 随机从列表中获取一个元素进行惦记操作
-        :return:
-        """
-        element_list = self.find_elements_yaml(locators)
-        try:
-            random_list = []
-            for elem in element_list:
-                random_list.append(elem)
-            random.choice(random_list[:]).click()
-        except Exception as e:
-            logger.error("[%s] 元素不能识别,原因是: %s" % (locators['element_name'], e.__str__()))
-            self.save_image_to_allure()
-
-    def find_element_yaml(self, locator, locator_timeout=5):
-        """
-        :param locator:  查找单个元素
-        :param locator_timeout: 超时时间
-        :return:
-        """
-        try:
-            locator_type = locator['locator_type']
-            locator_value = locator['locator_value']
-
-            if locator_type == "name":
-                locator_type = By.NAME
-            elif locator_type == "css":
-                locator_type = By.CSS_SELECTOR
-            elif locator_type == "xpath":
-                locator_type = By.XPATH
-            elif locator_type == "id":
-                locator_type = By.ID
-            elif locator_type == "class":
-                locator_type = By.CLASS_NAME
-            elif locator_type == "linktext":
-                locator_type = By.LINK_TEXT
-            elif locator_type == "partiallink":
-                locator_type = By.PARTIAL_LINK_TEXT
-            elif locator_type == "tag":
-                locator_type = By.TAG_NAME
-            element = WebDriverWait(self.driver, locator_timeout).until(
-                lambda x: x.find_element(locator_type, locator_value))
-            logger.info('[%s] 元素识别成功' % element)
-        except Exception as e:
-            logger.error("[%s] 元素不能识别,原因是: %s" % (locator['element_name'], e.__str__()))
-            self.save_image_to_allure()
-        return element
-
-    def find_elements_yaml(self, locator, locator_timeout=5):
-        """
-        :param locator:  查找一组元素
-        :param locator_timeout: 超时时间
-        :return:
-        """
-        try:
-            locator_type = locator['locator_type']
-            locator_value = locator['locator_value']
-
-            if locator_type == "name":
-                locator_type = By.NAME
-            elif locator_type == "css":
-                locator_type = By.CSS_SELECTOR
-            elif locator_type == "xpath":
-                locator_type = By.XPATH
-            elif locator_type == "id":
-                locator_type = By.ID
-            elif locator_type == "class":
-                locator_type = By.CLASS_NAME
-            elif locator_type == "linktext":
-                locator_type = By.LINK_TEXT
-            elif locator_type == "partiallink":
-                locator_type = By.PARTIAL_LINK_TEXT
-            elif locator_type == "tag":
-                locator_type = By.TAG_NAME
-            element = WebDriverWait(self.driver, locator_timeout).until(
-                lambda x: x.find_elements(locator_type, locator_value))
-            logger.info('[%s] 元素识别成功' % element)
-        except Exception as e:
-            logger.error("[%s] 元素不能识别,原因是: %s" % (locator['element_name'], e.__str__()))
-            self.save_image_to_allure()
-        return element
-
-    def select_random_element_content_yaml(self, locators):
-        """
-        :param locators: 随机从列表中获取一个元素进行惦记操作
-        :return:
-        """
-        element_list = self.find_elements_yaml(locators)
-        try:
-            content_element = []
-            for substance in element_list:
-                cont = substance.text
-                content_element.append(cont)
-            content = random.choice(content_element)
-            logger.info("获取到的文本信息:%s" % content)
-            return content
-        except Exception as e:
-            logger.error("[%s] 元素不能识别,原因是: %s" % (locators['element_name'], e.__str__()))
-            self.save_image_to_allure()
-
-    def get_elements_last_content_yaml(self, locators):
-        """
-        :param locators: 获取列表中最后一个元素的文本信息
-        :return:
-        """
-        element_list = self.find_elements_yaml(locators)
-        try:
-            text = element_list[-1].text
-            logger.info("选择列表最后一个元素")
-            return text
-        except Exception as e:
-            logger.error("[%s]元素不能识别,原因是: %s" % (locators['element_name'], e.__str__()))
-            self.save_image_to_allure()
-
-    def click_yaml(self, locator):
-        """
-        :param locator: 从字典中取值
-        :return:
-        """
-        element = self.driver.find_element(locator['locator_type'], locator['locator_value'])
-        try:
-            element.click()
-            logger.info("识别元素进行点击操作...")
-        except Exception as e:
-            logger.error("[%s] 元素不能识别,原因是: %s" % (locator['element_name'], e.__str__()))
-            self.save_image_to_allure()
-
-    def input_yaml(self, locator, text):
-        element = self.driver.find_element(locator['locator_type'], locator['locator_value'])
-        try:
-            element.send_keys(text)
-            logger.info("当前正在进行输入操作:[%s]" % text)
-        except Exception as e:
-            logger.error("[%s] 元素不能识别,原因是: %s" % (locator['element_name'], e.__str__()))
             self.save_image_to_allure()
 
     def get_absolute_path(self):

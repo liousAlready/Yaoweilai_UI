@@ -16,7 +16,7 @@ def login(request):
     return user
 
 
-@pytest.mark.parametrize("login", test_user_data, indirect=True)
+@pytest.mark.parametrize("login_test_data", test_user_data, indirect=True)
 def test_login(login):
     """登录用例"""
     a = login
@@ -24,4 +24,4 @@ def test_login(login):
     assert a != ""
 
 if __name__ == '__main__':
-    pytest.main(["-s",'-v'])
+    pytest.main(["-s",'-v',"test_demo_fixture.py"])

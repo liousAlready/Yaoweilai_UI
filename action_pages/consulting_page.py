@@ -3,9 +3,7 @@
 # @Author : Limusen
 # @File : consulting
 
-import pytest
 from common.base_page import ElementActions
-from common.driver_util import AppiumTest
 from elememt_info_datas.consulting_sutie.consulting_page import Consulting
 
 
@@ -33,7 +31,3 @@ class ActionConsulting(ElementActions):
         self.consult.click_tag_btn()
         self.consult.click_complete_btn()
         self.consult.click_release_btn()
-
-
-if __name__ == '__main__':
-    pass

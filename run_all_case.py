@@ -10,5 +10,7 @@ current_path = os.path.dirname(os.path.abspath(__file__))
 json_report_path = os.path.join(current_path, "report", "json")
 html_report_path = os.path.join(current_path, "report", "html")
 
-pytest.main(['-s', '-v', '--alluredir=%s' % json_report_path, '--clean-alluredir'])
-os.system('allure generate %s -o %s --clean' % (json_report_path, html_report_path))
+if __name__ == '__main__':
+
+    pytest.main(['-s', '-v', '--alluredir=%s' % json_report_path, '--clean-alluredir'])
+    os.system('allure generate %s -o %s --clean' % (json_report_path, html_report_path))
